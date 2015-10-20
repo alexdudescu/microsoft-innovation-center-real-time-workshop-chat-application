@@ -1,2 +1,2 @@
-# microsoft-innovation-center-real-time-workshop-chat-application
+# ASP.NET Workshop - Real-Time Web Development and Cloud Fundamentals
 Demo of chat application using SignalR
