@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Awesome Chat Application</title>
+	<meta charset="utf-8" />
+</head>
+<body>
+
+    <ul id="messages"></ul>
+    <input type="text" id="messageBox" />
+    <input type="button" id="sendMessage" value="Send Message!" />
+
+    <script src="Scripts/jquery-1.6.4.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="signalr/hubs"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            var userName = prompt("Enter your name: ");
+            var chat = $.connection.chatHub;
+            chat.client.messageReceived = function (originatorUser, message) {
+                $("#messages").append('<li><strong>' + originatorUser + '</strong>: ' + message);
+            };
+
+            $("#messageBox").focus();
+
+            $("#sendMessage").click(function () {
+                chat.server.send(userName, $("#messageBox").val());
+                $("#messageBox").val("");
+                $("#messageBox").focus();
+            });
+
+            $("#messageBox").keyup(function (event) {
+                if (event.keyCode == 13)
+                    $("#sendMessage").click();
+            });
+
+            $.connection.hub.logging = true;
+            $.connection.hub.start();
+        });
+    </script>
+</body>
+</html>
