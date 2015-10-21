@@ -26,7 +26,7 @@
     <script src="signalr/hubs"></script>
     <script type="text/javascript">
 
-        $(function () {
+        
             var userName = prompt("Enter your name: ");
             var chat = $.connection.chatHub;
             chat.client.messageReceived = function (originatorUser, message) {
@@ -59,7 +59,7 @@
             $.connection.hub.start().done(function () {
                 chat.server.connect(userName);
             });
-        });
+        
     </script>
 </body>
 </html>
